@@ -79,7 +79,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.2"
                     android:padding="1dp"
-                    android:src="@mipmap/camera" />
+                    android:src="@mipmap/calendar" />
 
                 <TextView
                     android:id="@+id/tv_date_time_event"
@@ -112,7 +112,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="2dp"
-                    android:src="@mipmap/camera"
+                    android:src="@mipmap/calendar"
                     android:visibility="invisible" />
                 </LinearLayout>
 

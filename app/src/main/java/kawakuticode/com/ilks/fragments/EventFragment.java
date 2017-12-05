@@ -164,7 +164,7 @@ public class EventFragment extends Fragment implements LoaderManager.LoaderCallb
 
         String toastMessage = "Item #" + clickedItemIndex + " clicked.";
         mToast = Toast.makeText(this.getContext(), toastMessage, Toast.LENGTH_LONG);*/
-        Fragment fragmentEventDetails = new EventDetailsFragment();
+        Fragment fragmentEventDetails = new EventOptionsFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable("event", mListEvents.get(clickedItemIndex));
         fragmentEventDetails.setArguments(bundle);

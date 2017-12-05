@@ -32,12 +32,17 @@ import kawakuticode.com.ilks.utilities.DateUtilities;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link EventDetailsFragment.OnFragmentInteractionListener} interface
+ * {@link EventOptionsFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  */
-public class EventDetailsFragment extends android.app.Fragment implements OptionEventAdapter.ListOptionItemClickListener {
+public class EventOptionsFragment extends android.app.Fragment implements OptionEventAdapter.ListOptionItemClickListener {
 
     private OnFragmentInteractionListener mListener;
+    private static final String KEY_EVENT = "event";
+    private static final String KEY_ARTISTS = "artists";
+    private static final String KEY_LOCATION = "location";
+
+    private static final String MAPS_PACKAGE = "com.google.android.apps.maps";
 
     private TextView tv_years, tv_months, tv_days;
     private ImageView event_cover;
@@ -52,7 +57,7 @@ public class EventDetailsFragment extends android.app.Fragment implements Option
     private Toast mToast;
 
 
-    public EventDetailsFragment() {
+    public EventOptionsFragment() {
         // Required empty public constructor
     }
 
@@ -62,7 +67,7 @@ public class EventDetailsFragment extends android.app.Fragment implements Option
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            mFbEvent = bundle.getParcelable("event");
+            mFbEvent = bundle.getParcelable(KEY_EVENT);
             dateContent = DateUtilities.timeLeft(mFbEvent.getStart_time()).split("//");
         }
 
@@ -134,7 +139,7 @@ public class EventDetailsFragment extends android.app.Fragment implements Option
                 if (mFbEvent.getArtists() != null) {
                     Bundle artistBundle = new Bundle();
                     android.app.Fragment ArtistFragment = new ArtistFragment();
-                    artistBundle.putStringArrayList("artists", (ArrayList) mFbEvent.getArtists());
+                    artistBundle.putStringArrayList(KEY_ARTISTS, (ArrayList) mFbEvent.getArtists());
                     ArtistFragment.setArguments(artistBundle);
                     getFragmentManager().beginTransaction()
                             .addToBackStack(null)
@@ -151,41 +156,16 @@ public class EventDetailsFragment extends android.app.Fragment implements Option
                 if (mFbEvent.getPlace() != null) {
 
                     Place placeEvent = mFbEvent.getPlace();
-
-
-                 /*
-                    StringBuilder builder = new StringBuilder();
-                    builder.append("geo:");
-                    builder.append(placeEvent.getLocation().getLatitude());
-                    builder.append(",");
-                    builder.append(placeEvent.getLocation().getLongitude());
-                    builder.append("?z=");
-                    builder.append(10);
-
-                    Bundle placeBundle = new Bundle();
-                    android.app.Fragment festivalMapFragment = new MapsActivity();
-                    placeBundle.putString("location",builder.toString());
-
-                    getFragmentManager().beginTransaction()
-                            .addToBackStack(null)
-                            .replace(R.id.container, festivalMapFragment)
-                            .commit();
-
-                   Uri gmmIntentUri = Uri.parse(builder.toString());
-                     Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri); */
-
                     Intent mapIntent = new Intent(this.getActivity(), MapsActivity.class);
-                    mapIntent.setPackage("com.google.android.apps.maps");
-                    mapIntent.putExtra("location", placeEvent);
+                    mapIntent.setPackage(MAPS_PACKAGE);
+                    mapIntent.putExtra(KEY_LOCATION, placeEvent);
                     if (mapIntent.resolveActivity(this.getActivity().getPackageManager()) != null) {
                         startActivity(mapIntent);
-
-                        // Toast.makeText(getContext(), builder.toString(), Toast.LENGTH_SHORT).show();
                     }
 
                 } else {
-
-                    Toast.makeText(getContext(), " No Location ", Toast.LENGTH_SHORT).show();
+                    //Todo
+                    Toast.makeText(getContext(), " No Location available", Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -202,7 +182,17 @@ public class EventDetailsFragment extends android.app.Fragment implements Option
                 break;
 
             case "Festival Info":
-                Toast.makeText(getContext(), "To be implemented", Toast.LENGTH_SHORT).show();
+
+                Bundle eventBundle = new Bundle();
+                android.app.Fragment festivalInfoFrag = new FestivalInfoFragment();
+                eventBundle.putParcelable(KEY_EVENT, mFbEvent);
+                festivalInfoFrag.setArguments(eventBundle);
+                getFragmentManager().beginTransaction()
+                        .addToBackStack(null)
+                        .replace(R.id.container, festivalInfoFrag)
+                        .commit();
+
+
                 break;
 
             case "Listen":
