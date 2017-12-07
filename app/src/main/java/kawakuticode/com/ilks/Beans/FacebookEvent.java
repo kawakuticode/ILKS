@@ -33,6 +33,7 @@ public class FacebookEvent implements Parcelable, Comparator<FacebookEvent>{
     private Date end_time;
     private Place place;
     private String ticket_uri;
+    private List<Feed> feeds;
     private boolean isCanceled;
     private int interested_count;
     private int attending_count;
@@ -77,6 +78,15 @@ public class FacebookEvent implements Parcelable, Comparator<FacebookEvent>{
         return artists;
     }
 
+    //@JsonSetter("artists")
+    public List<Feed> getFeeds() {
+        return feeds;
+    }
+
+    public void setFeeds(List<Feed> feeds) {
+        this.feeds = feeds;
+    }
+
     public void setArtists(List<Artist> artists) {
         this.artists = artists;
     }
@@ -116,6 +126,7 @@ public class FacebookEvent implements Parcelable, Comparator<FacebookEvent>{
     public boolean isCanceled() {
         return isCanceled;
     }
+
     @JsonSetter("is_canceled")
     public void setCanceled(boolean canceled) {
         isCanceled = canceled;
@@ -138,23 +149,29 @@ public class FacebookEvent implements Parcelable, Comparator<FacebookEvent>{
     }
 
 
-   
-
     @Override
     public String toString() {
-        return "Event{" +
+        return "FacebookEvent{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
                 ", cover=" + cover +
                 ", artists=" + artists +
                 ", start_time=" + start_time +
                 ", end_time=" + end_time +
                 ", place=" + place +
                 ", ticket_uri='" + ticket_uri + '\'' +
+                ", feeds=" + feeds +
                 ", isCanceled=" + isCanceled +
                 ", interested_count=" + interested_count +
                 ", attending_count=" + attending_count +
                 '}';
+    }
+
+
+    @Override
+    public int compare(FacebookEvent fbEvent1, FacebookEvent fbEvent2) {
+        return fbEvent2.start_time.compareTo(fbEvent1.start_time);
     }
 
     @Override
@@ -168,11 +185,12 @@ public class FacebookEvent implements Parcelable, Comparator<FacebookEvent>{
         dest.writeString(this.name);
         dest.writeString(this.description);
         dest.writeParcelable(this.cover, flags);
-        dest.writeList(this.artists);
+        dest.writeTypedList(this.artists);
         dest.writeLong(this.start_time != null ? this.start_time.getTime() : -1);
         dest.writeLong(this.end_time != null ? this.end_time.getTime() : -1);
         dest.writeParcelable(this.place, flags);
         dest.writeString(this.ticket_uri);
+        dest.writeTypedList(this.feeds);
         dest.writeByte(this.isCanceled ? (byte) 1 : (byte) 0);
         dest.writeInt(this.interested_count);
         dest.writeInt(this.attending_count);
@@ -183,14 +201,14 @@ public class FacebookEvent implements Parcelable, Comparator<FacebookEvent>{
         this.name = in.readString();
         this.description = in.readString();
         this.cover = in.readParcelable(Cover.class.getClassLoader());
-        this.artists = new ArrayList<Artist>();
-        in.readList(this.artists, Artist.class.getClassLoader());
+        this.artists = in.createTypedArrayList(Artist.CREATOR);
         long tmpStart_time = in.readLong();
         this.start_time = tmpStart_time == -1 ? null : new Date(tmpStart_time);
         long tmpEnd_time = in.readLong();
         this.end_time = tmpEnd_time == -1 ? null : new Date(tmpEnd_time);
         this.place = in.readParcelable(Place.class.getClassLoader());
         this.ticket_uri = in.readString();
+        this.feeds = in.createTypedArrayList(Feed.CREATOR);
         this.isCanceled = in.readByte() != 0;
         this.interested_count = in.readInt();
         this.attending_count = in.readInt();
@@ -207,9 +225,4 @@ public class FacebookEvent implements Parcelable, Comparator<FacebookEvent>{
             return new FacebookEvent[size];
         }
     };
-
-    @Override
-    public int compare(FacebookEvent fbEvent1, FacebookEvent fbEvent2) {
-        return fbEvent2.start_time.compareTo(fbEvent1.start_time);
-    }
 }

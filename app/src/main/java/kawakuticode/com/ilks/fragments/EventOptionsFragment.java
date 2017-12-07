@@ -40,6 +40,8 @@ public class EventOptionsFragment extends android.app.Fragment implements Option
     private OnFragmentInteractionListener mListener;
     private static final String KEY_EVENT = "event";
     private static final String KEY_ARTISTS = "artists";
+    private static final String KEY_FEED = "feeds";
+    private static final String KEY_GALLERY = "location";
     private static final String KEY_LOCATION = "location";
 
     private static final String MAPS_PACKAGE = "com.google.android.apps.maps";
@@ -174,10 +176,31 @@ public class EventOptionsFragment extends android.app.Fragment implements Option
 
             case "News":
 
+
+                Bundle feedBundle = new Bundle();
+                android.app.Fragment feedsFrag = new FeedsFragment();
+                feedBundle.putStringArrayList(KEY_ARTISTS, (ArrayList) mFbEvent.getArtists());
+                feedsFrag.setArguments(feedBundle);
+                getFragmentManager().beginTransaction()
+                        .addToBackStack(null)
+                        .replace(R.id.container, feedsFrag)
+                        .commit();
+
                 Toast.makeText(getContext(), "To be implemented", Toast.LENGTH_SHORT).show();
+
                 break;
 
             case "Photos":
+
+
+                Bundle galleryBundle = new Bundle();
+                android.app.Fragment gallertyFrag = new GalleryFragment();
+                galleryBundle.putParcelable(KEY_GALLERY, mFbEvent);
+                gallertyFrag.setArguments(galleryBundle);
+                getFragmentManager().beginTransaction()
+                        .addToBackStack(null)
+                        .replace(R.id.container, gallertyFrag)
+                        .commit();
                 Toast.makeText(getContext(), "To be implemented", Toast.LENGTH_SHORT).show();
                 break;
 
@@ -199,9 +222,6 @@ public class EventOptionsFragment extends android.app.Fragment implements Option
                 Toast.makeText(getContext(), "To be implemented", Toast.LENGTH_SHORT).show();
                 break;
 
-            case "Sponsors":
-                Toast.makeText(getContext(), "To be implemented", Toast.LENGTH_SHORT).show();
-                break;
         }
 
 

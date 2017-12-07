@@ -26,12 +26,12 @@ import java.util.List;
 
 import kawakuticode.com.ilks.Beans.FacebookEvent;
 import kawakuticode.com.ilks.R;
-import kawakuticode.com.ilks.adapters.FacebookEventAdapter;
+import kawakuticode.com.ilks.adapters.FacebookEventAdapterX;
 import kawakuticode.com.ilks.network.NetworkUtils;
 import kawakuticode.com.ilks.utilities.JsonUtilities;
 
 
-public class EventFragment extends Fragment implements LoaderManager.LoaderCallbacks<String>, FacebookEventAdapter.ListItemClickListener {
+public class EventFragment extends Fragment implements LoaderManager.LoaderCallbacks<String>, FacebookEventAdapterX.ListItemClickListener {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -44,7 +44,8 @@ public class EventFragment extends Fragment implements LoaderManager.LoaderCallb
     private static final String SEARCH_WEBSERVICE_URL = "events";
     private JsonUtilities mJsonUtilities;
 
-    private FacebookEventAdapter mAdapter;
+    // private FacebookEventAdapter mAdapter;
+    private FacebookEventAdapterX mAdapter;
     private RecyclerView mFacebookEvents;
 
     private String mUrlInstance;
@@ -125,7 +126,7 @@ public class EventFragment extends Fragment implements LoaderManager.LoaderCallb
         try {
             mListEvents = JsonUtilities.parserJsonResponseFacebook(data);
             if (mListEvents != null  && mListEvents.size()!=0  ) {
-                mAdapter = new FacebookEventAdapter(mListEvents, this);
+                mAdapter = new FacebookEventAdapterX(mListEvents, this, this.getContext());
                 mFacebookEvents.setAdapter(mAdapter);
                 mAdapter.notifyDataSetChanged();
 

@@ -1,7 +1,5 @@
 package kawakuticode.com.ilks.utilities;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,10 +21,10 @@ public class ContentDisplayUtilities {
     public static List <OptionEvent> optionContent() {
 
         String [] options = {"Line-Up", "Map", "News", "Photos",
-                "Festival Info", "Listen", "Sponsors"};
+                "Festival Info", "Listen"};
 
          int [] icons = {R.mipmap.lineup, R.mipmap.map, R.mipmap.news, R.mipmap.photos,
-                 R.mipmap.festival_info, R.mipmap.listen, R.mipmap.sponsors};
+                 R.mipmap.festival_info, R.mipmap.listen};
 
          List<OptionEvent> mEventOpions  = new ArrayList<>();
 
@@ -35,8 +33,6 @@ public class ContentDisplayUtilities {
             OptionEvent opt_tmp = new OptionEvent();
             opt_tmp.setOption(options[k]);
             opt_tmp.setImgSource(icons[k]);
-
-            Log.d("creation ", opt_tmp.toString());
             mEventOpions.add(opt_tmp);
         }
         return mEventOpions;
