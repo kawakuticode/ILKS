@@ -3,11 +3,17 @@ package kawakuticode.com.ilks.fragments;
 import android.app.Fragment;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import kawakuticode.com.ilks.R;
+import kawakuticode.com.ilks.adapters.FeedAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,17 +23,21 @@ import kawakuticode.com.ilks.R;
  * Use the {@link FeedsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FeedsFragment extends Fragment {
+public class FeedsFragment extends Fragment implements FeedAdapter.ListClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private static final String KEY_FEED = "feeds";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private ArrayList mListFeeds = new ArrayList();
+    private FeedAdapter mFeedsAdapter;
 
     public FeedsFragment() {
         // Required empty public constructor
@@ -54,17 +64,30 @@ public class FeedsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            mListFeeds = bundle.getStringArrayList(KEY_FEED);
         }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_feeds, container, false);
+        View feedView = inflater.inflate(R.layout.fragment_feeds, container, false);
+
+        RecyclerView recyclerView = (RecyclerView) feedView.findViewById(R.id.rv_feed_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+
+
+        mFeedsAdapter = new FeedAdapter(mListFeeds, this);
+        recyclerView.setAdapter(mFeedsAdapter);
+
+        if (mListFeeds.size() == 0) {
+            Toast.makeText(this.getContext(), " No Feeds  ", Toast.LENGTH_SHORT).show();
+        }
+        return feedView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -89,6 +112,12 @@ public class FeedsFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+
+    @Override
+    public void onListItemClick(int clickedItemIndex) {
+
     }
 
     /**

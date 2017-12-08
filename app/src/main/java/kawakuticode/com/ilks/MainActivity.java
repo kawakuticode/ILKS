@@ -97,7 +97,6 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_events) {
 
             Fragment events_frag = new EventFragment();
-
             getFragmentManager().beginTransaction()
                     .addToBackStack(null)
                     .replace(R.id.container, events_frag)

@@ -1,7 +1,9 @@
 package kawakuticode.com.ilks.fragments;
 
 import android.app.Fragment;
+import android.app.LoaderManager;
 import android.content.Context;
+import android.content.Loader;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,7 +18,14 @@ import kawakuticode.com.ilks.R;
  * {@link GalleryFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  */
-public class GalleryFragment extends Fragment {
+public class GalleryFragment extends Fragment implements LoaderManager.LoaderCallbacks<String> {
+
+
+    private static final int GETEVENTS_LOADER = 22;
+    private static final String GET_ALL_EVENTS_WEBSERVICE_QUERY = "allevents";
+    private static final String EVENTS_BUNDLE_KEY = "events";
+
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -31,6 +40,28 @@ public class GalleryFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_gallery, container, false);
     }
+
+
+    @Override
+    public Loader<String> onCreateLoader(int id, Bundle args) {
+        return null;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<String> loader, String data) {
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<String> loader) {
+
+    }
+
+
+
+
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -55,6 +86,7 @@ public class GalleryFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
 
     /**
      * This interface must be implemented by activities that contain this

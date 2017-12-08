@@ -3,7 +3,6 @@ package kawakuticode.com.ilks.adapters;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +29,8 @@ public class FacebookEventAdapterX extends RecyclerView.Adapter<FacebookEventAda
     private List<FacebookEvent> mEvents;
     private DateUtilities mDateUtilis;
     private Context mContext;
+
+
     private ContentDisplayUtilities mContentDisplayUtilities;
 
 
@@ -44,6 +45,14 @@ public class FacebookEventAdapterX extends RecyclerView.Adapter<FacebookEventAda
         this.mContext = context;
     }
 
+
+    public Context getmContext() {
+        return mContext;
+    }
+
+    public void setmContext(Context mContext) {
+        this.mContext = mContext;
+    }
     @Override
     public FacebookEventAdapterX.EventViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
@@ -60,9 +69,7 @@ public class FacebookEventAdapterX extends RecyclerView.Adapter<FacebookEventAda
     @Override
     public void onBindViewHolder(FacebookEventAdapterX.EventViewHolder holder, int position) {
         FacebookEvent event = mEvents.get(position);
-        Log.d("EVENT ...", event.toString());
-
-        Picasso.with(mContext).load(event.getCover().getSource()).into(holder.event_flyer);
+        Picasso.with(getmContext()).load(event.getCover().getSource()).into(holder.event_flyer);
         holder.tv_party_name.setText(event.getName());
         DateUtilities.timeLeft(event.getStart_time());
         holder.tv_url.setText(event.getTicket_uri());
@@ -75,12 +82,10 @@ public class FacebookEventAdapterX extends RecyclerView.Adapter<FacebookEventAda
     public void setPlaceOnHolder(FacebookEvent event, FacebookEventAdapterX.EventViewHolder holder) {
 
         if (event.getPlace() != null) {
-//            Log.d("ADAPTER", event.getName() + " ---> " + event.getStart_time().toString());
-
             String place = ContentDisplayUtilities.truncatePlaceName(event.getPlace().getName_place());
             holder.tv_place.setText(place);
         } else {
-            holder.tv_place.setText("Place to be announced");
+            holder.tv_place.setText(R.string.place_to_be_announced);
         }
 
     }

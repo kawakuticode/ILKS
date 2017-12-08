@@ -19,8 +19,8 @@ import java.util.List;
  */
 @JsonSerialize
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonPropertyOrder({ "id", "name","description" , "cover","artists","start_time"
-	                , "end_time","place","ticket_uri" , "isCanceled","interested_count", "attending_count" })
+@JsonPropertyOrder({"id", "name", "description", "cover", "artists", "place", "feed", "start_time"
+        , "end_time","place","ticket_uri" , "isCanceled","interested_count", "attending_count" })
 
 public class FacebookEvent implements Parcelable, Comparator<FacebookEvent>{
 
@@ -65,6 +65,7 @@ public class FacebookEvent implements Parcelable, Comparator<FacebookEvent>{
     public void setCover(Cover cover) {
         this.cover = cover;
     }
+
     public String getDescription() {
 		return description;
 	}
@@ -73,20 +74,22 @@ public class FacebookEvent implements Parcelable, Comparator<FacebookEvent>{
 		this.description = description;
 	}
 
-    @JsonSetter("artists")
+
     public List <Artist> getArtists() {
         return artists;
     }
 
-    //@JsonSetter("artists")
+
     public List<Feed> getFeeds() {
         return feeds;
     }
 
+    @JsonSetter("feed")
     public void setFeeds(List<Feed> feeds) {
         this.feeds = feeds;
     }
 
+    @JsonSetter("artists")
     public void setArtists(List<Artist> artists) {
         this.artists = artists;
     }

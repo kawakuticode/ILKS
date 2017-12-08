@@ -179,14 +179,13 @@ public class EventOptionsFragment extends android.app.Fragment implements Option
 
                 Bundle feedBundle = new Bundle();
                 android.app.Fragment feedsFrag = new FeedsFragment();
-                feedBundle.putStringArrayList(KEY_ARTISTS, (ArrayList) mFbEvent.getArtists());
+                feedBundle.putStringArrayList(KEY_FEED, (ArrayList) mFbEvent.getFeeds());
                 feedsFrag.setArguments(feedBundle);
                 getFragmentManager().beginTransaction()
                         .addToBackStack(null)
                         .replace(R.id.container, feedsFrag)
                         .commit();
 
-                Toast.makeText(getContext(), "To be implemented", Toast.LENGTH_SHORT).show();
 
                 break;
 

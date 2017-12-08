@@ -23,4 +23,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">Event place</string>
 
+    <string name="place_to_be_announced" translatable="true">Place to be announced</string>
+
 </resources>

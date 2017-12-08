@@ -16,18 +16,17 @@ import java.util.Date;
 @JsonPropertyOrder({ "id", "message","story" , "updated_time",})
 public class Feed implements Parcelable {
 
-    private long id;
+    private String id;
     private String message;
     private String story;
     private Date updated_time;
 
 
-
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -72,7 +71,7 @@ public class Feed implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(this.id);
+        dest.writeString(this.id);
         dest.writeString(this.message);
         dest.writeString(this.story);
         dest.writeLong(this.updated_time != null ? this.updated_time.getTime() : -1);
@@ -82,7 +81,7 @@ public class Feed implements Parcelable {
     }
 
     protected Feed(Parcel in) {
-        this.id = in.readLong();
+        this.id = in.readString();
         this.message = in.readString();
         this.story = in.readString();
         long tmpUpdated_time = in.readLong();

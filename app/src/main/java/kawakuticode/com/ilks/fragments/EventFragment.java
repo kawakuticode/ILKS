@@ -40,8 +40,8 @@ public class EventFragment extends Fragment implements LoaderManager.LoaderCallb
 
 
     private static final int GETEVENTS_LOADER = 22;
-    private static final String GETALLEVENTS = "allevents";
-    private static final String SEARCH_WEBSERVICE_URL = "events";
+    private static final String GET_ALL_EVENTS_WEBSERVICE_QUERY = "allevents";
+    private static final String EVENTS_BUNDLE_KEY = "events";
     private JsonUtilities mJsonUtilities;
 
     // private FacebookEventAdapter mAdapter;
@@ -74,6 +74,13 @@ public class EventFragment extends Fragment implements LoaderManager.LoaderCallb
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null) {
+
+            mUrlInstance = savedInstanceState.getString(EVENTS_BUNDLE_KEY);
+
+        }
+
         getLoaderManager().initLoader(GETEVENTS_LOADER, null, this);
         getFacebookEvents();
 
@@ -103,13 +110,13 @@ public class EventFragment extends Fragment implements LoaderManager.LoaderCallb
 
     private void getFacebookEvents() {
 
-        URL getAllEventsUrl = NetworkUtils.buildUrl(GETALLEVENTS);
+        URL getAllEventsUrl = NetworkUtils.buildUrl(GET_ALL_EVENTS_WEBSERVICE_QUERY);
         Log.d("My Url ", getAllEventsUrl.toString());
 
         mUrlInstance = getAllEventsUrl.toString();
 
         Bundle queryBundle = new Bundle();
-        queryBundle.putString(SEARCH_WEBSERVICE_URL, mUrlInstance);
+        queryBundle.putString(EVENTS_BUNDLE_KEY, mUrlInstance);
 
 
         Loader<String> githubSearchLoader = getLoaderManager().getLoader(GETEVENTS_LOADER);
@@ -124,7 +131,7 @@ public class EventFragment extends Fragment implements LoaderManager.LoaderCallb
     private void showJsonDataView(String data) {
 
         try {
-            mListEvents = JsonUtilities.parserJsonResponseFacebook(data);
+            mListEvents = JsonUtilities.parserJsonResponseFacebookEvents(data);
             if (mListEvents != null  && mListEvents.size()!=0  ) {
                 mAdapter = new FacebookEventAdapterX(mListEvents, this, this.getContext());
                 mFacebookEvents.setAdapter(mAdapter);
@@ -190,7 +197,7 @@ public class EventFragment extends Fragment implements LoaderManager.LoaderCallb
                 if (args == null) {
                     return;
                 }
-                mLoadingIndicator.setVisibility(View.VISIBLE);
+                //    mLoadingIndicator.setVisibility(View.VISIBLE);
                 if (mEventsJson != null) {
                     deliverResult(mEventsJson);
                 } else {
@@ -202,7 +209,7 @@ public class EventFragment extends Fragment implements LoaderManager.LoaderCallb
             public String loadInBackground() {
 
                 /* Extract the search query from the args using our constant */
-                String searchQueryUrlString = args.getString(SEARCH_WEBSERVICE_URL);
+                String searchQueryUrlString = args.getString(EVENTS_BUNDLE_KEY);
                 try {
                     URL webserviceUrl = new URL(searchQueryUrlString);
                     String eventsSearchResults = NetworkUtils.getResponseFromHttpUrl(webserviceUrl);
@@ -241,7 +248,7 @@ public class EventFragment extends Fragment implements LoaderManager.LoaderCallb
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString(SEARCH_WEBSERVICE_URL, mUrlInstance);
+        outState.putString(EVENTS_BUNDLE_KEY, mUrlInstance);
     }
 
     /**

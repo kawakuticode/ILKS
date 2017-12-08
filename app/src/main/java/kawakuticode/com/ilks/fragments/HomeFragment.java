@@ -121,7 +121,7 @@ public class HomeFragment extends Fragment implements LoaderManager.LoaderCallba
     public void loadViewsContent(String data) {
 
         try {
-            mListEvents = JsonUtilities.parserJsonResponseFacebook(data);
+            mListEvents = JsonUtilities.parserJsonResponseFacebookEvents(data);
             if (mListEvents != null && mListEvents.size() != 0) {
                 Log.d("size ", mListEvents.size() + "");
                 fb_event = mListEvents.get(0);
