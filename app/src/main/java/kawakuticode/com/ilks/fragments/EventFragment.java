@@ -24,7 +24,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-import kawakuticode.com.ilks.Beans.FacebookEvent;
+import kawakuticode.com.ilks.Model.FacebookEvent;
 import kawakuticode.com.ilks.R;
 import kawakuticode.com.ilks.adapters.FacebookEventAdapterX;
 import kawakuticode.com.ilks.network.NetworkUtils;
@@ -42,7 +42,7 @@ public class EventFragment extends Fragment implements LoaderManager.LoaderCallb
     private static final int GETEVENTS_LOADER = 22;
     private static final String GET_ALL_EVENTS_WEBSERVICE_QUERY = "allevents";
     private static final String EVENTS_BUNDLE_KEY = "events";
-    private JsonUtilities mJsonUtilities;
+
 
     // private FacebookEventAdapter mAdapter;
     private FacebookEventAdapterX mAdapter;
@@ -51,7 +51,6 @@ public class EventFragment extends Fragment implements LoaderManager.LoaderCallb
     private String mUrlInstance;
     private ProgressBar mLoadingIndicator;
     private List<FacebookEvent> mListEvents = new ArrayList<>();
-    private Toast mToast;
 
 
     /**
@@ -165,13 +164,7 @@ public class EventFragment extends Fragment implements LoaderManager.LoaderCallb
     public void onListItemClick(int clickedItemIndex) {
 
 
-     /*   if (mToast != null) {
-            mToast.cancel();
-        }
 
-
-        String toastMessage = "Item #" + clickedItemIndex + " clicked.";
-        mToast = Toast.makeText(this.getContext(), toastMessage, Toast.LENGTH_LONG);*/
         Fragment fragmentEventDetails = new EventOptionsFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable("event", mListEvents.get(clickedItemIndex));
@@ -181,7 +174,7 @@ public class EventFragment extends Fragment implements LoaderManager.LoaderCallb
                 .addToBackStack(null)
                 .replace(R.id.container,fragmentEventDetails)
                 .commit();
-//        mToast.show();
+
     }
 
 

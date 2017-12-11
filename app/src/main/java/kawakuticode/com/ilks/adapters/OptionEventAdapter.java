@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import kawakuticode.com.ilks.Beans.OptionEvent;
+import kawakuticode.com.ilks.Model.OptionEvent;
 import kawakuticode.com.ilks.R;
 
 /**

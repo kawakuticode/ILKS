@@ -2,14 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
-    tools:context="kawakuticode.com.ilks.fragments.GalleryFragment">
+    android:background="#ffff"
+    tools:context="kawakuticode.com.ilks.fragments.ListenFragment">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_grid_gallery"
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/tv_deezer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:padding="10dp" />
+        android:text="@string/hello_blank_fragment" />
 
 </FrameLayout>

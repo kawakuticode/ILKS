@@ -2,6 +2,7 @@ package kawakuticode.com.ilks.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +13,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import kawakuticode.com.ilks.Beans.EventAlbum;
-import kawakuticode.com.ilks.Beans.PictureSource;
+import kawakuticode.com.ilks.Model.EventAlbum;
+import kawakuticode.com.ilks.Model.PictureSource;
 import kawakuticode.com.ilks.R;
 
 /**
@@ -34,6 +35,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryH
 
 
     public GalleryAdapter(List<EventAlbum> event_albums, GalleryAdapter.ListClickListener mOnClickListener, Context mContext) {
+
         this.event_albums = event_albums;
         this.mOnClickListener = mOnClickListener;
         this.mContext = mContext;
@@ -67,6 +69,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryH
 
         EventAlbum album = event_albums.get(position);
         PictureSource source_cover = album.getSources().get(0);
+        Log.d("album", album.getName());
+        Log.d("source", source_cover.getSource());
         Picasso.with(getmContext()).load(source_cover.getSource()).into(holder.albumCover);
         holder.nameAlbum.setText(album.getName());
 
@@ -75,7 +79,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryH
 
     @Override
     public int getItemCount() {
-        return 0;
+        return event_albums.size();
     }
 
     public class GalleryHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -92,7 +96,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryH
 
         @Override
         public void onClick(View v) {
-
+            int clickedPosition = getAdapterPosition();
+            mOnClickListener.onListItemClick(clickedPosition);
         }
     }
 }

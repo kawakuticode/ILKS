@@ -20,9 +20,9 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-import kawakuticode.com.ilks.Beans.FacebookEvent;
-import kawakuticode.com.ilks.Beans.OptionEvent;
-import kawakuticode.com.ilks.Beans.Place;
+import kawakuticode.com.ilks.Model.FacebookEvent;
+import kawakuticode.com.ilks.Model.OptionEvent;
+import kawakuticode.com.ilks.Model.Place;
 import kawakuticode.com.ilks.R;
 import kawakuticode.com.ilks.activities.MapsActivity;
 import kawakuticode.com.ilks.adapters.OptionEventAdapter;
@@ -39,6 +39,8 @@ public class EventOptionsFragment extends android.app.Fragment implements Option
 
     private OnFragmentInteractionListener mListener;
     private static final String KEY_EVENT = "event";
+
+    private static final String KEY_DEEZER = "deezer";
     private static final String KEY_ARTISTS = "artists";
     private static final String KEY_FEED = "feeds";
     private static final String KEY_GALLERY = "location";
@@ -91,14 +93,14 @@ public class EventOptionsFragment extends android.app.Fragment implements Option
 
         Picasso.with(getContext()).load(mFbEvent.getCover().getSource()).into(event_cover);
 
-        RecyclerView recyclerView = (RecyclerView) detailsView.findViewById(R.id.rvGridOptions);
+        mDetailsReclyceView = (RecyclerView) detailsView.findViewById(R.id.rvGridOptions);
         int numberOfColumns = 3;
-        recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), numberOfColumns));
+        mDetailsReclyceView.setLayoutManager(new GridLayoutManager(this.getContext(), numberOfColumns));
 
         optionsData = ContentDisplayUtilities.optionContent();
 
         optionsAdapter = new OptionEventAdapter(this, optionsData);
-        recyclerView.setAdapter(optionsAdapter);
+        mDetailsReclyceView.setAdapter(optionsAdapter);
 
         return detailsView;
     }
@@ -190,17 +192,11 @@ public class EventOptionsFragment extends android.app.Fragment implements Option
                 break;
 
             case "Photos":
-
-
-                Bundle galleryBundle = new Bundle();
                 android.app.Fragment gallertyFrag = new GalleryFragment();
-                galleryBundle.putParcelable(KEY_GALLERY, mFbEvent);
-                gallertyFrag.setArguments(galleryBundle);
                 getFragmentManager().beginTransaction()
                         .addToBackStack(null)
                         .replace(R.id.container, gallertyFrag)
                         .commit();
-                Toast.makeText(getContext(), "To be implemented", Toast.LENGTH_SHORT).show();
                 break;
 
             case "Festival Info":
@@ -218,6 +214,16 @@ public class EventOptionsFragment extends android.app.Fragment implements Option
                 break;
 
             case "Listen":
+
+                Bundle listenBundle = new Bundle();
+                ListenFragment listenFragment = new ListenFragment();
+                listenBundle.putParcelable(KEY_DEEZER, mFbEvent);
+                listenFragment.setArguments(listenBundle);
+                getFragmentManager().beginTransaction()
+                        .addToBackStack(null)
+                        .replace(R.id.container, listenFragment)
+                        .commit();
+
                 Toast.makeText(getContext(), "To be implemented", Toast.LENGTH_SHORT).show();
                 break;
 

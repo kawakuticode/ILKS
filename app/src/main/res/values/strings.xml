@@ -24,5 +24,8 @@
     <string name="title_activity_maps">Event place</string>
 
     <string name="place_to_be_announced" translatable="true">Place to be announced</string>
+    <string name="no_albums" translatable="true">No Albums to Display</string>
+    <string name="login_cancelled">login canceled</string>
+    <string name="deezer_error_during_login">error login</string>
 
 </resources>

@@ -17,7 +17,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-import kawakuticode.com.ilks.Beans.FacebookEvent;
+import kawakuticode.com.ilks.Model.FacebookEvent;
 import kawakuticode.com.ilks.R;
 import kawakuticode.com.ilks.utilities.DateUtilities;
 import kawakuticode.com.ilks.utilities.JsonUtilities;

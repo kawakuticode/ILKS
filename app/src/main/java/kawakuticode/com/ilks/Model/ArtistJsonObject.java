@@ -1,4 +1,4 @@
-package kawakuticode.com.ilks.Beans;
+package kawakuticode.com.ilks.Model;
 
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

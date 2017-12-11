@@ -8,11 +8,11 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import kawakuticode.com.ilks.Beans.Artist;
-import kawakuticode.com.ilks.Beans.Cover;
-import kawakuticode.com.ilks.Beans.FacebookEvent;
-import kawakuticode.com.ilks.Beans.MLocation;
-import kawakuticode.com.ilks.Beans.Place;
+import kawakuticode.com.ilks.Model.Artist;
+import kawakuticode.com.ilks.Model.Cover;
+import kawakuticode.com.ilks.Model.FacebookEvent;
+import kawakuticode.com.ilks.Model.MLocation;
+import kawakuticode.com.ilks.Model.Place;
 
 /**
  * Created by russeliusernestius on 20/09/17.

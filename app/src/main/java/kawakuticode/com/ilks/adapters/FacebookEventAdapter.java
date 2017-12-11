@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import kawakuticode.com.ilks.Beans.FacebookEvent;
+import kawakuticode.com.ilks.Model.FacebookEvent;
 import kawakuticode.com.ilks.R;
 import kawakuticode.com.ilks.utilities.ContentDisplayUtilities;
 import kawakuticode.com.ilks.utilities.DateUtilities;

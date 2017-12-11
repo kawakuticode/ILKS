@@ -14,7 +14,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import kawakuticode.com.ilks.Beans.FacebookEvent;
+import kawakuticode.com.ilks.Model.EventAlbum;
+import kawakuticode.com.ilks.Model.FacebookEvent;
 
 /**
  * Created by russeliusernestius on 29/10/17.
@@ -53,6 +54,36 @@ public class JsonUtilities {
         return mListEvents;
     }
 
+    public static List<EventAlbum> parserJsonResponseEventAlbums(String data) throws JsonProcessingException {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true);
+        objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+        objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+
+        JsonNode rootNode;
+        List<EventAlbum> mListAlbums = new ArrayList<>();
+
+        if (isValidJSON(data)) {
+            try {
+                rootNode = objectMapper.readTree(data);
+                Iterator<JsonNode> list_events = rootNode.elements();
+
+                while (list_events.hasNext()) {
+                    JsonNode json_event = list_events.next();
+                    EventAlbum tmp_album = new ObjectMapper().readValue(json_event.toString(), EventAlbum.class);
+                    mListAlbums.add(tmp_album);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Log.d("ERROR ", " Invalid Json");
+
+        }
+
+        return mListAlbums;
+    }
 
     public static boolean isValidJSON(final String json) throws JsonProcessingException {
         boolean valid = true;
@@ -66,4 +97,6 @@ public class JsonUtilities {
         }
         return valid;
     }
+
+
 }

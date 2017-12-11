@@ -26,7 +26,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-import kawakuticode.com.ilks.Beans.FacebookEvent;
+import kawakuticode.com.ilks.Model.FacebookEvent;
 import kawakuticode.com.ilks.R;
 import kawakuticode.com.ilks.network.NetworkUtils;
 import kawakuticode.com.ilks.utilities.JsonUtilities;

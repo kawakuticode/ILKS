@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import kawakuticode.com.ilks.Beans.Artist;
+import kawakuticode.com.ilks.Model.Artist;
 import kawakuticode.com.ilks.R;
 
 /**

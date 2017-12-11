@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
         android:id="@+id/cardView2"
@@ -11,9 +11,12 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        app:contentPadding="4dp"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
 
     <LinearLayout
@@ -36,7 +39,7 @@
                 <ImageView
                     android:id="@+id/img_album_cover"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="250dp"
                     android:layout_gravity="center"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_like" />
@@ -54,6 +57,7 @@
                         android:layout_height="wrap_content"
                         android:padding="16dp"
                         android:text="nome"
+                        android:maxLines="3"
                         android:textColor="#FFFFFF"
                         android:textSize="@dimen/text_size"
                         android:textStyle="bold" />
@@ -63,5 +67,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
+    </android.support.v7.widget.CardView>
 </android.support.constraint.ConstraintLayout>

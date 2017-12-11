@@ -1,4 +1,4 @@
-package kawakuticode.com.ilks.Beans;
+package kawakuticode.com.ilks.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

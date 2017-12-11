@@ -12,7 +12,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import kawakuticode.com.ilks.Beans.Place;
+import kawakuticode.com.ilks.Model.Place;
 import kawakuticode.com.ilks.R;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {

@@ -15,7 +15,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import kawakuticode.com.ilks.Beans.Artist;
+import kawakuticode.com.ilks.Model.Artist;
 import kawakuticode.com.ilks.R;
 import kawakuticode.com.ilks.adapters.ArtistAdapter;
 
