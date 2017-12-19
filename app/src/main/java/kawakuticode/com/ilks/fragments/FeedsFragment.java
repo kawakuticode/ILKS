@@ -43,21 +43,9 @@ public class FeedsFragment extends Fragment implements FeedAdapter.ListClickList
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FeedsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FeedsFragment newInstance(String param1, String param2) {
+
+    public static FeedsFragment newInstance() {
         FeedsFragment fragment = new FeedsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -125,6 +113,8 @@ public class FeedsFragment extends Fragment implements FeedAdapter.ListClickList
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
+     * activity.
+     * activity.
      * <p>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
@@ -133,5 +123,11 @@ public class FeedsFragment extends Fragment implements FeedAdapter.ListClickList
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putStringArrayList(KEY_FEED, mListFeeds);
     }
 }

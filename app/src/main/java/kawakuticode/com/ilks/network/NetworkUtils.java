@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 public class NetworkUtils {
 
-    final static String LOCAL_WEBSERVICE_URL ="http://10.0.2.2:8080/ILKSWservice/";
+    final static String LOCAL_WEBSERVICE_URL = "http://10.0.2.2:8080/ILKSWservice/";
 
     public static URL buildUrl(String param) {
         Uri builtUri = Uri.parse(LOCAL_WEBSERVICE_URL).buildUpon().appendEncodedPath(param).build();
@@ -30,25 +30,34 @@ public class NetworkUtils {
 
     /**
      * This method returns the entire result from the HTTP response.
+     *
      * @param url The URL to fetch the HTTP response from.
      * @return The contents of the HTTP response.
      * @throws IOException Related to network and stream reading
      */
     public static String getResponseFromHttpUrl(URL url) throws IOException {
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-        try {
-            InputStream in = urlConnection.getInputStream();
-            Scanner scanner = new Scanner(in);
-            scanner.useDelimiter("\\A");
-            boolean hasInput = scanner.hasNext();
-            if (hasInput) {
-                return scanner.next();
-            } else {
-                return null;
+        String response = null;
+        int responseCode = urlConnection.getResponseCode();
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            try {
+                InputStream in = urlConnection.getInputStream();
+                Scanner scanner = new Scanner(in);
+                scanner.useDelimiter("\\A");
+                boolean hasInput = scanner.hasNext();
+                if (hasInput) {
+                    response = scanner.next();
+                } else {
+                    return null;
+                }
+            } finally {
+                urlConnection.disconnect();
             }
-        } finally {
+        } else {
+            System.out.println("Error Connect WebService " + responseCode);
             urlConnection.disconnect();
         }
+        return response;
     }
 }
 

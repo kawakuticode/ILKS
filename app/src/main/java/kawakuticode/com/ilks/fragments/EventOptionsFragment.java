@@ -4,10 +4,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -136,7 +136,6 @@ public class EventOptionsFragment extends android.app.Fragment implements Option
     public void onOptionItemClick(int clickedItemIndex) {
 
         String mOption = optionsData.get(clickedItemIndex).getOption();
-        Log.d(" axd", mOption);
         switch (mOption) {
             case "Line-Up":
 
@@ -150,8 +149,7 @@ public class EventOptionsFragment extends android.app.Fragment implements Option
                             .replace(R.id.container, ArtistFragment)
                             .commit();
                 } else {
-                    Toast.makeText(getContext(), " Line up to be defined", Toast.LENGTH_SHORT).show();
-
+                    Snackbar.make(this.getView(), "Line Up not defined Yet", Snackbar.LENGTH_SHORT).show();
                 }
                 break;
             case "Map":
@@ -168,8 +166,7 @@ public class EventOptionsFragment extends android.app.Fragment implements Option
                     }
 
                 } else {
-                    //Todo
-                    Toast.makeText(getContext(), " No Location available", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(this.getView(), "Location not available Yet", Snackbar.LENGTH_SHORT).show();
 
                 }
 
@@ -178,17 +175,19 @@ public class EventOptionsFragment extends android.app.Fragment implements Option
 
             case "News":
 
+                if (mFbEvent.getFeeds() != null) {
+                    Bundle feedBundle = new Bundle();
+                    android.app.Fragment feedsFrag = new FeedsFragment();
+                    feedBundle.putStringArrayList(KEY_FEED, (ArrayList) mFbEvent.getFeeds());
+                    feedsFrag.setArguments(feedBundle);
+                    getFragmentManager().beginTransaction()
+                            .addToBackStack(null)
+                            .replace(R.id.container, feedsFrag)
+                            .commit();
 
-                Bundle feedBundle = new Bundle();
-                android.app.Fragment feedsFrag = new FeedsFragment();
-                feedBundle.putStringArrayList(KEY_FEED, (ArrayList) mFbEvent.getFeeds());
-                feedsFrag.setArguments(feedBundle);
-                getFragmentManager().beginTransaction()
-                        .addToBackStack(null)
-                        .replace(R.id.container, feedsFrag)
-                        .commit();
-
-
+                } else {
+                    Snackbar.make(this.getView(), "No Feeds on this event", Snackbar.LENGTH_SHORT).show();
+                }
                 break;
 
             case "Photos":
@@ -214,7 +213,7 @@ public class EventOptionsFragment extends android.app.Fragment implements Option
                 break;
 
             case "Listen":
-
+/*
                 Bundle listenBundle = new Bundle();
                 ListenFragment listenFragment = new ListenFragment();
                 listenBundle.putParcelable(KEY_DEEZER, mFbEvent);
@@ -222,9 +221,11 @@ public class EventOptionsFragment extends android.app.Fragment implements Option
                 getFragmentManager().beginTransaction()
                         .addToBackStack(null)
                         .replace(R.id.container, listenFragment)
-                        .commit();
+                        .commit();*/
 
-                Toast.makeText(getContext(), "To be implemented", Toast.LENGTH_SHORT).show();
+
+                Snackbar.make(this.getView(), "Module to be implemented", Snackbar.LENGTH_SHORT).show();
+
                 break;
 
         }

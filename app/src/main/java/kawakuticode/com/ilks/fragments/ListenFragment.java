@@ -1,18 +1,17 @@
 package kawakuticode.com.ilks.fragments;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.accounts.AccountManagerCallback;
+import android.accounts.AccountManagerFuture;
 import android.app.Fragment;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.deezer.sdk.model.Permissions;
-import com.deezer.sdk.network.connect.DeezerConnect;
-import com.deezer.sdk.network.connect.SessionStore;
-import com.deezer.sdk.network.connect.event.DialogListener;
 
 import kawakuticode.com.ilks.R;
 
@@ -33,20 +32,17 @@ public class ListenFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    TextView textView;
-    String applicationID = "263482";
 
-    String Name = "ilksplayer";
-    String Secret_Key = "3c2d67bab0cf5a6cdc424de177d3fd5e";
-    // The set of Deezer Permissions needed by the app
-    String[] permissions = new String[]{
-            Permissions.BASIC_ACCESS,
-            Permissions.OFFLINE_ACCESS};
 
-    DeezerConnect deezerConnect;
+    String Application_name = "ilksplayer";
+    String API_key = "034afb48c5b1e487940e2403e450b957";
+    String Shared_secret = "f12e855881fd7fb7231d21a995866d1b";
 
+    String username = "kawakuticode";
+    String password = "k4w4kuti#";
 
     private OnFragmentInteractionListener mListener;
+    private TextView textView;
 
     public ListenFragment() {
         // Required empty public constructor
@@ -70,50 +66,48 @@ public class ListenFragment extends Fragment {
 
 
         View view = inflater.inflate(R.layout.listen_fragment, container, false);
-        deezerConnect = new DeezerConnect(this.getContext(), applicationID);
-        connectToDeezer();
+
         textView = (TextView) view.findViewById(R.id.tv_deezer);
 
+
+        connectToLastFm();
+
+        // getSessionBtn.setOnClickListener(mOnGetSessionKey);
+
+        AccountManager am = AccountManager.get(this.getContext());
+        Account[] accounts = am.getAccountsByType(username);
+        if (accounts.length > 0) {
+            textView.setText("Last.fm account: " + accounts[0].name);
+        } else {
+            textView.setText("No Last.fm account configured!");
+        }
+
         return view;
-
-
     }
 
-    private void connectToDeezer() {
-        deezerConnect.authorize(this.getActivity(), permissions, mDeezerDialogListener);
+    private void connectToLastFm() {
+
+        AccountManager am = AccountManager.get(getContext());
+        Account[] accounts = am.getAccountsByType(username);
+        if (accounts.length > 0) {
+            Bundle options = new Bundle();
+            //This is a test key. Register your own at http://www.last.fm/api
+            options.putString("api_key", API_key);
+            options.putString("api_secret", Shared_secret);
+            am.getAuthToken(accounts[0], "", options, getActivity(), new AccountManagerCallback<Bundle>() {
+                public void run(AccountManagerFuture<Bundle> arg0) {
+                    try {
+                        String key = arg0.getResult().getString(AccountManager.KEY_AUTHTOKEN);
+                        Log.d("key ", key);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, null);
+        }
     }
 
-    /**
-     * A listener for the Deezer Login Dialog
-     */
-    private DialogListener mDeezerDialogListener = new DialogListener() {
 
-        @Override
-        public void onComplete(final Bundle values) {
-            // store the current authentication info
-            SessionStore sessionStore = new SessionStore();
-            sessionStore.save(deezerConnect, getContext());
-
-            textView.setText(deezerConnect.getAccessToken());
-           /* // Launch the Home activity
-            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-            startActivity(intent);*/
-        }
-
-        @Override
-        public void onException(final Exception exception) {
-            Toast.makeText(getContext(), R.string.deezer_error_during_login,
-                    Toast.LENGTH_LONG).show();
-        }
-
-
-        @Override
-        public void onCancel() {
-            Toast.makeText(getContext(), R.string.login_cancelled, Toast.LENGTH_LONG).show();
-        }
-
-
-    };
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
