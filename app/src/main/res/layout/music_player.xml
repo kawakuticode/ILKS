@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/img_background_player"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="#686868"
+
+            />
+
+        <TextView
+            android:id="@+id/tv_music_playing_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tv_music_playing_artist"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="7dp"
+            android:text="Mix Tape Vol.1"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_music_playing_artist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/linearLayout4"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="13dp"
+            android:text="Produced by dj zola"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/img_background_player"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:id="@+id/button_player"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <ImageButton
+                    android:id="@+id/bt_play_"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:src="@android:drawable/ic_media_play" />
+
+                <ImageButton
+
+                    android:id="@+id/bt_skip_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="50dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:paddingRight="20dp"
+                    android:src="@android:drawable/ic_media_previous" />
+
+                <ImageButton
+                    android:id="@+id/bt_skip_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="50dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:paddingLeft="20dp"
+                    android:src="@android:drawable/ic_media_next" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_above="@+id/linearLayout3"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="17dp"
+            android:orientation="vertical">
+
+            <ProgressBar
+                android:id="@+id/pg_music_progress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</LinearLayout>
