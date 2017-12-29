@@ -33,10 +33,6 @@ import kawakuticode.com.ilks.utilities.JsonUtilities;
 
 public class EventFragment extends Fragment implements LoaderManager.LoaderCallbacks<String>, FacebookEventAdapterX.ListItemClickListener {
 
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
 
 
     private static final int GETEVENTS_LOADER = 22;
@@ -44,7 +40,6 @@ public class EventFragment extends Fragment implements LoaderManager.LoaderCallb
     private static final String EVENTS_BUNDLE_KEY = "events";
 
 
-    // private FacebookEventAdapter mAdapter;
     private FacebookEventAdapterX mAdapter;
     private RecyclerView mFacebookEvents;
 
@@ -60,13 +55,8 @@ public class EventFragment extends Fragment implements LoaderManager.LoaderCallb
     public EventFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static EventFragment newInstance(int columnCount) {
+    public static EventFragment newInstance() {
         EventFragment fragment = new EventFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -91,8 +81,8 @@ public class EventFragment extends Fragment implements LoaderManager.LoaderCallb
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_event, container, false);
 
-        mLoadingIndicator = (ProgressBar) view.findViewById(R.id.pgb_event);
-        mFacebookEvents = (RecyclerView) view.findViewById(R.id.list_events);
+        mLoadingIndicator = view.findViewById(R.id.pgb_event);
+        mFacebookEvents = view.findViewById(R.id.list_events);
 
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext());
@@ -150,7 +140,7 @@ public class EventFragment extends Fragment implements LoaderManager.LoaderCallb
 
 
     private void showErrorMessage() {
-        Toast.makeText(this.getContext(), "Nothing Events to Display", Toast.LENGTH_LONG).show();
+        Toast.makeText(this.getContext(), "No Events to Display", Toast.LENGTH_LONG).show();
     }
 
 
@@ -162,8 +152,6 @@ public class EventFragment extends Fragment implements LoaderManager.LoaderCallb
 
     @Override
     public void onListItemClick(int clickedItemIndex) {
-
-
 
         Fragment fragmentEventDetails = new EventOptionsFragment();
         Bundle bundle = new Bundle();

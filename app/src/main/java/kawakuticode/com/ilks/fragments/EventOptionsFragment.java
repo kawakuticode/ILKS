@@ -37,17 +37,14 @@ import kawakuticode.com.ilks.utilities.DateUtilities;
  */
 public class EventOptionsFragment extends android.app.Fragment implements OptionEventAdapter.ListOptionItemClickListener {
 
-    private OnFragmentInteractionListener mListener;
     private static final String KEY_EVENT = "event";
-
     private static final String KEY_DEEZER = "deezer";
     private static final String KEY_ARTISTS = "artists";
     private static final String KEY_FEED = "feeds";
     private static final String KEY_GALLERY = "location";
     private static final String KEY_LOCATION = "location";
-
     private static final String MAPS_PACKAGE = "com.google.android.apps.maps";
-
+    private OnFragmentInteractionListener mListener;
     private TextView tv_years, tv_months, tv_days;
     private ImageView event_cover;
     private FacebookEvent mFbEvent;
@@ -82,10 +79,10 @@ public class EventOptionsFragment extends android.app.Fragment implements Option
                              Bundle savedInstanceState) {
         View detailsView = inflater.inflate(R.layout.fragment_event_details_fragments, container, false);
         // Inflate the layout for this fragment
-        tv_years = (TextView) detailsView.findViewById(R.id.tv_n_years);
-        tv_months = (TextView) detailsView.findViewById(R.id.tv_n_months);
-        tv_days = (TextView) detailsView.findViewById(R.id.tv_n_days);
-        event_cover = (ImageView) detailsView.findViewById(R.id.event_cover_img);
+        tv_years = detailsView.findViewById(R.id.tv_n_years);
+        tv_months = detailsView.findViewById(R.id.tv_n_months);
+        tv_days = detailsView.findViewById(R.id.tv_n_days);
+        event_cover = detailsView.findViewById(R.id.event_cover_img);
 
         tv_years.setText(dateContent[0]);
         tv_months.setText(dateContent[1]);
@@ -93,7 +90,7 @@ public class EventOptionsFragment extends android.app.Fragment implements Option
 
         Picasso.with(getContext()).load(mFbEvent.getCover().getSource()).into(event_cover);
 
-        mDetailsReclyceView = (RecyclerView) detailsView.findViewById(R.id.rvGridOptions);
+        mDetailsReclyceView = detailsView.findViewById(R.id.rvGridOptions);
         int numberOfColumns = 3;
         mDetailsReclyceView.setLayoutManager(new GridLayoutManager(this.getContext(), numberOfColumns));
 
@@ -213,7 +210,7 @@ public class EventOptionsFragment extends android.app.Fragment implements Option
                 break;
 
             case "Listen":
-/*
+
                 Bundle listenBundle = new Bundle();
                 ListenFragment listenFragment = new ListenFragment();
                 listenBundle.putParcelable(KEY_DEEZER, mFbEvent);
@@ -221,10 +218,10 @@ public class EventOptionsFragment extends android.app.Fragment implements Option
                 getFragmentManager().beginTransaction()
                         .addToBackStack(null)
                         .replace(R.id.container, listenFragment)
-                        .commit();*/
+                        .commit();
 
 
-                Snackbar.make(this.getView(), "Module to be implemented", Snackbar.LENGTH_SHORT).show();
+                //  Snackbar.make(this.getView(), "Module to be implemented", Snackbar.LENGTH_SHORT).show();
 
                 break;
 

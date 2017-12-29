@@ -23,15 +23,9 @@ import kawakuticode.com.ilks.R;
 
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryHolder> {
 
-    List<EventAlbum> event_albums;
-
     final private GalleryAdapter.ListClickListener mOnClickListener;
+    List<EventAlbum> event_albums;
     private Context mContext;
-
-
-    public interface ListClickListener {
-        void onListItemClick(int clickedItemIndex);
-    }
 
 
     public GalleryAdapter(List<EventAlbum> event_albums, GalleryAdapter.ListClickListener mOnClickListener, Context mContext) {
@@ -53,9 +47,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryH
     public GalleryAdapter.GalleryHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
 
-        Context context = parent.getContext();
         int layoutIdForListItem = R.layout.album_item;
-        LayoutInflater inflater = LayoutInflater.from(context);
+        LayoutInflater inflater = LayoutInflater.from(getmContext());
 
         boolean shouldAttachToParentImmediately = false;
         View view = inflater.inflate(layoutIdForListItem, parent, shouldAttachToParentImmediately);
@@ -82,6 +75,10 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryH
         return event_albums.size();
     }
 
+    public interface ListClickListener {
+        void onListItemClick(int clickedItemIndex);
+    }
+
     public class GalleryHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ImageView albumCover;
         private TextView nameAlbum;
@@ -89,8 +86,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryH
 
         public GalleryHolder(View view) {
             super(view);
-            albumCover = (ImageView) view.findViewById(R.id.img_album_cover);
-            nameAlbum = (TextView) view.findViewById(R.id.tv_album_title);
+            albumCover = view.findViewById(R.id.img_album_cover);
+            nameAlbum = view.findViewById(R.id.tv_album_title);
             itemView.setOnClickListener(this);
         }
 
